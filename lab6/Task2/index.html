@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d5dcff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ff7482;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #8445d9;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #cd410e;
+        }
+
+        form {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px 0 20px 0;
+            border: none;
+            border-radius: 3px;
+            box-sizing: border-box;
+            color: #4d4c4c;
+            background-color: #9cd58b;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            font-weight: bold;
+            background-color: #558dd9;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .notes-container {
+            margin-top: 20px;
+        }
+
+        .note {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .note:hover {
+            cursor: pointer;
+            border: 2px solid yellow;
+        }
+
+        .note h3 {
+            margin-top: 0;
+        }
+
+        .note p {
+            margin-bottom: 0;
+        }
+
+        .note button {
+            margin-top: 15px;
+            background-color: #dc3545;
+        }
+
+        .note button:hover {
+            background-color: #c82333;
+        }
+
+        #updateButtons {
+            display: none;
+            justify-content: space-between;
+        }
+
+        #updateButton, #cancelButton {
+           width: 40%;
+        }
+
+        #updateButton {
+            background: #4caf50;
+        }
+
+        #cancelButton {
+            background: #c82333;
+        }
+    </style>
+    <script defer src="script.js"></script>
+</head>
+<body>
+<div class="container">
+    <form id="note-form">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="4" required></textarea>
+        </div>
+        <div>
+            <button id="addButton" type="submit">Add Note</button>
+            <div id="updateButtons">
+                <button id="updateButton" type="button">Update Note</button>
+                <button id="cancelButton" type="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div class="notes-container" id="notes-container"></div>
+</div>
+</body>
+</html>

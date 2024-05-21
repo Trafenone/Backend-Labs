@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #message {
+            margin: 10px 0;
+            color: #ff0000;
+        }
+
+        #showUsersButton {
+            margin: 5px 0;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #showUsersButton:hover {
+            background-color: #0056b3;
+        }
+
+        #login {
+            background-color: #ff0000;
+            color: #fff;
+            width: 100%;
+        }
+    </style>
+    <script defer src="index.js"></script>
+</head>
+<body>
+<form id="registrationForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required>
+    <div id="message"></div>
+    <button type="submit">Register</button>
+    <button onclick="location.href = 'users.html'" type="button" id="showUsersButton">Show Users</button>
+    <br>
+    <button onclick="location.href = 'profile.html'" type="button" id="login">Login</button>
+</form>
+</body>
+</html>

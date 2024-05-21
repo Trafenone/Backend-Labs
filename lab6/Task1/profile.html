@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        button {
+            width: 100%;
+        }
+
+        #registration {
+            margin: 5px 0;
+            background-color: cornflowerblue;
+        }
+
+        #container {
+            background-color: #fff;
+            display: none;
+        }
+
+        #update {
+            color: white;
+            background-color: #007bff;
+        }
+
+        #delete {
+            color: white;
+            background-color: darkorange;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<form id="loginForm">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Login</button>
+    <br>
+    <button onclick="location.href = 'index.html'" type="button" id="registration">Registration</button>
+</form>
+<div id="container">
+    <form id="updateForm">
+        <label for="newName">Name:</label><br>
+        <input type="text" id="newName" name="name" required><br>
+        <label for="newEmail">Email:</label><br>
+        <input type="email" id="newEmail" name="email" required><br>
+        <label for="newPassword">Password:</label><br>
+        <input type="password" id="newPassword" name="password" required>
+        <div id="message"></div>
+        <button id="update" type="submit">Update profile</button>
+        <br>
+        <button id="delete" type="button">Delete profile</button>
+    </form>
+</div>
+<script>
+    const loginForm = document.getElementById("loginForm");
+    const updateForm = document.getElementById("updateForm");
+    const message = document.getElementById("message");
+    const container = document.getElementById("container");
+    const deleteBtn = document.getElementById("delete");
+    const newName = document.getElementById("newName");
+    const newEmail = document.getElementById("newEmail");
+    const newPassword = document.getElementById("newPassword");
+    let id = null;
+
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        fetch("http://lab6/Task1/Backend/users.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email: email, password: password})
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    loginForm.style.display = "none";
+                    container.style.display = "block";
+                    fillData(data.user);
+                } else {
+                    message.innerHTML = "Bad request";
+                }
+            })
+            .catch(error => console.error(error));
+    });
+
+    updateForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        fetch("http://lab6/Task1/Backend/users.php", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({id: id, name: newName.value, email: newEmail.value, password: newPassword.value})
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.href = 'users.html';
+                } else {
+                    message.innerHTML = "Smt went wrong...";
+                }
+            })
+            .catch(error => console.error(error));
+    })
+
+    deleteBtn.addEventListener("click", () => {
+        fetch("http://lab6/Task1/Backend/users.php", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({id: id})
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.href = 'index.html';
+                } else {
+                    message.innerHTML = "Smt went wrong...";
+                }
+            })
+            .catch(error => console.error());
+    });
+
+    function fillData(user) {
+        id = user.id;
+        newName.value = user.name;
+        newEmail.value = user.email;
+        newPassword.value = user.password
+    }
+</script>
+</body>
+</html>
